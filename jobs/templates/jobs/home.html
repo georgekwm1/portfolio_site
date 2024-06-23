@@ -1,0 +1,44 @@
+{% extends 'jobs/base.html' %}
+{% load static %}
+{% block content %}
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Welcome</h1>
+        <p class="lead text-body-secondary">Hello, I am Ogbonna, a software engineer and data scientist. I enjoy coding and making applications.</p>
+        <p>
+          <a href="mailto: georgekwm1@gmail"  class="btn btn-primary my-2">Email Me</a>
+          <a href="https://github.com/georgekwm1" class="btn btn-secondary my-2">GitHub</a>
+        </p>
+        <img src="{% static 'Woolf_Display_pic.png' %}" alt="Profile Pic", height="200">
+      </div>
+    </div>
+  </section>
+<!-- Containers -->
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {%  for job in jobs %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="{{ job.image.url }}" alt="Image" class="bd-placeholder-img card-img-top" width="100%" height="225">
+            <div class="card-body">
+              <p class="card-text">{{ job.summary|truncatechars:30 }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'view' pk=job.pk %}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</main>
+{% endblock %}
