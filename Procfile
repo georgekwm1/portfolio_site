@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: python manage.py runserver %PORT%
+web: gunicorn portfolio.wsgi
