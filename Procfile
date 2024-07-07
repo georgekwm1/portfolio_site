@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: pyhon manage runserver %PORT%
+web: python manage runserver %PORT%
