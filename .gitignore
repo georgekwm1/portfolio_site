@@ -1,6 +1,4 @@
 .venv/
-jobs/__pycache__/
-portfolio/__pycache__/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
