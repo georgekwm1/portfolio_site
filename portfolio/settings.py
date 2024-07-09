@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9r5)i(as$#_-p^*(uo8f&erknpwj%#dos@m_x903-7$&lm!d=f'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 'django-insecure-9r5)i(as$#_-p^*(uo8f&erknpwj%#dos@m_x903-7$&lm!d=f')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['stark-sierra-69342-07610dec41a7.herokuapp.com',
                  'georgekwm1.tech', 'www.georgekwm1.tech']
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,6 +91,9 @@ DATABASES = {
         'PASSWORD': 'pff1b03c09a27df6b14f0977fc6224312d1bcd231010d893eb3318c4f35ab6813',
         'HOST': 'ceqbglof0h8enj.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -126,7 +134,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_STORAGE = 'portfolio.storage.MyStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR
@@ -135,3 +143,22 @@ MEDIA_ROOT = BASE_DIR
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'django': {
+        'handlers': ['console'],
+        'level': 'INFO',
+        'propagate': True,
+    },
+}
