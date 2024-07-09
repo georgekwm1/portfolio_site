@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9r5)i(as$#_-p^*(uo8f&erknpwj%#dos@m_x903-7$&lm!d=f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://stark-sierra-69342-07610dec41a7.herokuapp.com',
+ALLOWED_HOSTS = ['https://stark-sierra-69342.herokuapp.com',
                  'georgekwm1.tech', 'www.georgekem1.tech']
 
 
